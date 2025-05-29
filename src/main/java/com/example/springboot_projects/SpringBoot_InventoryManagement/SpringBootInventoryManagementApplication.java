@@ -1,5 +1,9 @@
 package com.example.springboot_projects.SpringBoot_InventoryManagement;
 
+import com.example.springboot_projects.SpringBoot_InventoryManagement.Controllers.InventoryController;
+import com.example.springboot_projects.SpringBoot_InventoryManagement.DTOs.CreateOrUpdateRequestDto;
+import com.example.springboot_projects.SpringBoot_InventoryManagement.DTOs.CreateOrUpdateResponseDto;
+import com.example.springboot_projects.SpringBoot_InventoryManagement.DTOs.DeleteInventoryRequestDto;
 import com.example.springboot_projects.SpringBoot_InventoryManagement.Enums.UserType;
 import com.example.springboot_projects.SpringBoot_InventoryManagement.Models.Inventory;
 import com.example.springboot_projects.SpringBoot_InventoryManagement.Models.Product;
@@ -21,6 +25,8 @@ public class SpringBootInventoryManagementApplication implements CommandLineRunn
 	private ProductRepository productRepository;
 	@Autowired
 	private InventoryRepository inventoryRepository;
+	@Autowired
+	private InventoryController inventoryController;
 
 	public void loadData() {
 		// User-1
@@ -70,5 +76,13 @@ public class SpringBootInventoryManagementApplication implements CommandLineRunn
 	public void run(String... args) throws Exception {
 		System.out.println("*************** INVENTORY MANAGEMENT RUN  ***************");
 		// loadData();
+		CreateOrUpdateRequestDto updateInventoryRequestDTO = new CreateOrUpdateRequestDto();
+		updateInventoryRequestDTO.setProductId(1);
+		updateInventoryRequestDTO.setQuantity(100);
+		updateInventoryRequestDTO.setUserId(2);
+		CreateOrUpdateResponseDto updateInventoryResponseDto;
+		updateInventoryResponseDto = inventoryController.createOrUpdateInventory(updateInventoryRequestDTO);
+		System.out.println("Inventory Update Status: " + updateInventoryResponseDto.getResponseStatus());
+
 	}
 }
